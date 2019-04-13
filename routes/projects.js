@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Get all projects
 router.get('/', async (req, res) => {
-    const projects = await Project.find();
+    const projects = await Project.find().sort('-date').limit(300);
     res.send(projects);
 });
 

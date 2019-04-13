@@ -10,6 +10,11 @@ const Project = mongoose.model('Project', new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+        required: true
     }
 }));
 
@@ -18,6 +23,7 @@ function validate(project) {
     const schema = {
         title: Joi.string().required(),
         description: Joi.string().required(),
+        date: null
     };
 
     return Joi.validate(project, schema);
