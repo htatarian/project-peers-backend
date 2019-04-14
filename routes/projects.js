@@ -1,5 +1,6 @@
 const auth = require('../middleware/auth.js');
 const {Project, validate} = require('../models/project');
+const {User} = require('../models/user');
 const express = require('express');
 const router = express.Router();
 
@@ -18,6 +19,17 @@ router.get('/:id', async (req, res) => {
     res.send(project);
 });
 
+// Get project owner
+router.get('/:id/owner', async (req, res) => {
+    const project = await Project.findById(req.params.id);
+
+    if (!project) return res.status(404).send('The project with the given ID was not found.');
+
+    const user = await User.findById(project.postedBy);
+
+    res.send(user.firstname + " " + user.lastname);
+});
+
 // Add a project
 router.post('/', auth, async (req, res) => {
     const { error } = validate(req.body);
@@ -27,6 +39,7 @@ router.post('/', auth, async (req, res) => {
     let project = new Project({
         title: req.body.title,
         description: req.body.description,
+        postedBy: req.user._id
     });
 
     project = await project.save();

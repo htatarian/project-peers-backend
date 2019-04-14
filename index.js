@@ -1,3 +1,5 @@
+require('express-async-errors');
+const error = require('./middleware/error')
 const config = require('config');
 const mongoose = require('mongoose');
 const employees = require('./routes/projects');
@@ -25,6 +27,7 @@ app.use(function(req, res, next) {
 app.use('/api/projects', employees);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use(error);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

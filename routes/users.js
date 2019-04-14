@@ -7,6 +7,7 @@ const {User, validate} = require('../models/user');
 const express = require('express');
 const router = express.Router();
 
+
 // Get current user
 router.get('/me', auth, async (req, res) =>{
     const token = req.header('x-auth-token');

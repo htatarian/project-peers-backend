@@ -15,6 +15,11 @@ const Project = mongoose.model('Project', new mongoose.Schema({
         type: Date,
         default: Date.now,
         required: true
+    },
+    postedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 }));
 
