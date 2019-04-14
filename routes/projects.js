@@ -27,7 +27,7 @@ router.get('/:id/owner', async (req, res) => {
 
     const user = await User.findById(project.postedBy);
 
-    res.send(user.firstname + " " + user.lastname);
+    res.send({fullname: user.firstname + " " + user.lastname});
 });
 
 // Add a project
